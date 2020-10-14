@@ -10,6 +10,13 @@ import { CardMedia } from "@material-ui/core";
 import { API } from "../Api";
 import FormUpload from "./Form";
 import Validate from "./Validate";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 var fs = require("browserify-fs");
 
 const useStyles = makeStyles({
@@ -34,6 +41,18 @@ const useStyles = makeStyles({
 // {}
 
 const About = () => {
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const classes = useStyles();
   const [state, setState] = React.useState({
     post: API,
@@ -207,6 +226,13 @@ const About = () => {
             </CardActionArea>
           </Card>
         ))}
+        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+          Open responsive dialog
+        </Button>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Tes</DialogTitle>
+        </Dialog>
+        s
       </div>
     </React.Fragment>
   );
